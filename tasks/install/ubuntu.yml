@@ -1,0 +1,15 @@
+---
+- name: Add WireGuard repository
+  apt_repository:
+    repo: "{{ wireguard_repo_url }}"
+    state: present
+    update_cache: yes
+  tags:
+    - wg-install
+
+- name: Install required packages
+  package:
+    name: "{{ wireguard_distro_packages }}"
+    state: present
+  tags:
+    - wg-install

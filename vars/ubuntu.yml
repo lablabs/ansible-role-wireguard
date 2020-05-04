@@ -1,0 +1,6 @@
+---
+_distro_packages:
+  - software-properties-common
+  - "linux-headers-{{ ansible_kernel }}"
+
+_repo_url: ppa:wireguard/wireguard

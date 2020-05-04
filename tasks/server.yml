@@ -1,0 +1,41 @@
+---
+
+- name: Test if private key is already present
+  stat:
+    path: "{{ wireguard_privatekey_path }}"
+  register: _priv_key
+
+- name: Generate WireGuard private and public keys
+  shell: umask 077 && wg genkey | tee {{ wireguard_privatekey_path }} | wg pubkey > {{ wireguard_publickey_path }}
+  when: not _priv_key.stat.exists
+
+- name: Test if preshared key is already present
+  stat:
+    path: "{{ wireguard_presharedkey_path }}"
+  register: _psk_key
+
+- name: Generate WireGuard preshared key
+  shell: umask 077 && wg genpsk | tee {{ wireguard_presharedkey_path }}
+  when: not _psk_key.stat.exists
+
+- name: copy .netdev profiles
+  template:
+    src: "systemd-networkd.conf.j2"
+    dest: "{{ wireguard_systemd_path }}/{{ wireguard_interface }}.netdev"
+    mode: 0644
+  vars:
+    systemd_config: "{{ wireguard_systemd_netdev + peers }}"
+  notify:
+    - reload systemd
+    - restart systemd-networkd
+
+- name: copy .network profiles
+  template:
+    src: "systemd-networkd.conf.j2"
+    dest: "{{ wireguard_systemd_path }}/{{ wireguard_interface }}.network"
+    mode: 0644
+  vars:
+    systemd_config: "{{ wireguard_systemd_network }}"
+  notify:
+    - reload systemd
+    - restart systemd-networkd

@@ -1,0 +1,19 @@
+---
+
+- debug: msg="{{ item.WireGuardPeer | json_query('[?"AllowedIPs"].AllowedIPs') }}"
+  loop: "{{ peers }}"
+
+- debug: msg="{{ item.WireGuardPeer | json_query('[?"PublicKey"].PublicKey') }}"
+  loop: "{{ peers }}"
+
+- name: Create clients configs
+  template:
+    src: "clients.conf.j2"
+    dest: "{{ wireguard_clients_dir }}/{{ item | to_uuid }}.conf"
+    mode: 0644
+  vars:
+    preshared_key: "{{ _psk_value['content'] | b64decode }}"
+    allowed_ips: "{{ systemd_networkd_network.br0 | json_query('[?\"Route\"].Route[].Destination') | join(\", \") }}"
+  loop: "{{ peers }}"
+
+- name: 

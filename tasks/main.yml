@@ -1,0 +1,53 @@
+---
+- include_vars: "{{ ansible_distribution|lower }}.yml"
+
+- include_tasks: "install/{{ ansible_distribution|lower }}.yml"
+
+- name: Create required dirs
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: systemd-network
+    mode: 0755
+    state: directory
+  loop:
+    - "{{ wireguard_dir }}"
+    - "{{ wireguard_clients_dir }}"
+
+- name: Install WireGuard
+  package:
+    name: "{{ wireguard_packages }}"
+    state: present
+  tags:
+    - wg-install
+
+- name: Enable WireGuard kernel module
+  modprobe:
+    name: wireguard
+    state: present
+  register: wireguard_module_enabled
+  until:  wireguard_module_enabled is succeeded
+  retries: 10
+  delay: 10
+  failed_when: wireguard_module_enabled is failure
+  tags:
+    - wg-install
+
+- set_fact:
+    peers: "{{ lookup('template', 'templates/peers.j2') | from_yaml }}"
+
+- include_tasks: server.yml
+
+- name: Read preshared-key
+  slurp:
+    src: "{{ wireguard_presharedkey_path }}"
+  register: _psk_value
+
+- debug:
+    msg: "{{ _psk_value['content'] | b64decode }}"
+
+- include_tasks: clients.yml
+
+- name: Cleanup secrets from memory
+  set_fact:
+    _psk_value: ""
