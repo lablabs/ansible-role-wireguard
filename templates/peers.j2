@@ -6,6 +6,6 @@
 - WireGuardPeer:
   - AllowedIPs: {{ wireguard_server_ip | ipmath(loop.index) }}/32
   - PublicKey: "{{ peer.publickey }}"
-  - PresharedKeyFile: "{{ wireguard_presharedkey_path }}"
+  - PresharedKey: "{{ _pskkey_value['content'] | b64decode }}"
   - PersistentKeepalive: {{ peer.keepalive | default(wireguard_keepalive) }}
 {% endfor %}

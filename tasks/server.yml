@@ -9,6 +9,16 @@
   shell: umask 077 && wg genkey | tee {{ wireguard_privatekey_path }} | wg pubkey > {{ wireguard_publickey_path }}
   when: not _priv_key.stat.exists
 
+- name: Read publickey
+  slurp:
+    src: "{{ wireguard_publickey_path }}"
+  register: _pubkey_value
+
+- name: Read privatekey
+  slurp:
+    src: "{{ wireguard_privatekey_path }}"
+  register: _privkey_value
+
 - name: Test if preshared key is already present
   stat:
     path: "{{ wireguard_presharedkey_path }}"
@@ -17,6 +27,15 @@
 - name: Generate WireGuard preshared key
   shell: umask 077 && wg genpsk | tee {{ wireguard_presharedkey_path }}
   when: not _psk_key.stat.exists
+
+- name: Read presharedkey
+  slurp:
+    src: "{{ wireguard_presharedkey_path }}"
+  register: _pskkey_value
+
+- name: Create peers variable from template
+  set_fact:
+    peers: "{{ lookup('template', 'templates/peers.j2') | from_yaml }}"
 
 - name: copy .netdev profiles
   template:

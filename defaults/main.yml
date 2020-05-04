@@ -40,7 +40,7 @@ wireguard_systemd_netdev:
       - Kind: wireguard
       - Description: "wireguard server: {{ wireguard_interface}} server on {{ wireguard_address }}"
   - WireGuard:
-    - PrivateKeyFile: "{{ wireguard_privatekey_path }}"
+    - PrivateKey: "{{ _privkey_value['content'] | b64decode }}"
     - ListenPort: "{{ wireguard_port }}"
 
 wireguard_systemd_network:
