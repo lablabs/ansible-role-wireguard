@@ -33,7 +33,8 @@
   tags:
     - wg-install
 
-- set_fact:
+- name: Create peers variable from template
+  set_fact:
     peers: "{{ lookup('template', 'templates/peers.j2') | from_yaml }}"
 
 - include_tasks: server.yml
@@ -43,11 +44,14 @@
     src: "{{ wireguard_presharedkey_path }}"
   register: _psk_value
 
-- debug:
-    msg: "{{ _psk_value['content'] | b64decode }}"
+- name: Read preshared-key
+  slurp:
+    src: "{{ wireguard_publickey_path }}"
+  register: _pubkey_value
 
 - include_tasks: clients.yml
 
 - name: Cleanup secrets from memory
   set_fact:
     _psk_value: ""
+    _pubkey_value: ""

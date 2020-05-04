@@ -3,7 +3,7 @@ PrivateKey = [User Private Key File]
 Address = {{ item.WireGuardPeer | json_query('[?"AllowedIPs"].AllowedIPs') | first }}
 
 [Peer]
-PublicKey = {{ item.WireGuardPeer | json_query('[?"PublicKey"].PublicKey') | first }}
+PublicKey = {{ server_public_key }}
 PresharedKey = {{ preshared_key }}
 AllowedIPs = {{ allowed_ips }}
 Endpoint = {{ wireguard_hostname }}:{{ wireguard_port }}
