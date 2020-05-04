@@ -6,5 +6,5 @@ Address = {{ item.WireGuardPeer | json_query('[?"AllowedIPs"].AllowedIPs') | fir
 PublicKey = {{ item.WireGuardPeer | json_query('[?"PublicKey"].PublicKey') | first }}
 PresharedKey = {{ preshared_key }}
 AllowedIPs = {{ allowed_ips }}
-Endpoint = {{ inventory_hostname }}.lablabs.io:{{ wireguard_port }}
+Endpoint = {{ wireguard_hostname }}:{{ wireguard_port }}
 PersistentKeepalive = {{ wireguard_keepalive }}

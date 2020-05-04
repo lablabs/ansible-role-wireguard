@@ -1,7 +1,7 @@
 galaxy_info:
   author: Adam Hamsik
   description: Installs Wireguard with systemd integration.
-  license: GPLv3
+  license: MIT
   min_ansible_version: 2.5
   platforms:
   - name: ArchLinux

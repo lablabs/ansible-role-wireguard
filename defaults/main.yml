@@ -21,6 +21,9 @@ wireguard_packages:
 # The default port WireGuard will listen if not specified otherwise.
 wireguard_port: 51820
 
+# Client destination Hostname
+wireguard_hostname: "{{ inventory_hostname }}"
+
 # The default interface name that wireguard should use if not specified otherwise.
 wireguard_interface: wg0
 
