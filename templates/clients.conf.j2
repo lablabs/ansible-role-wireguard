@@ -8,6 +8,6 @@ Address = {{ item.WireGuardPeer | json_query('[?"AllowedIPs"].AllowedIPs') | fir
 [Peer]
 PublicKey = {{ server_public_key }}
 PresharedKey = {{ preshared_key }}
-AllowedIPs = {{ allowed_ips }}
+AllowedIPs = {{ wireguard_peers_allowed_ips }}
 Endpoint = {{ wireguard_hostname }}:{{ wireguard_port }}
-PersistentKeepalive = {{ wireguard_keepalive }}
+PersistentKeepalive = {{ (item.WireGuardPeer | json_query('[?"PersistentKeepalive"].PersistentKeepalive') | first) | default(wireguard_keepalive) }}
