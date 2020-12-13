@@ -1,7 +1,13 @@
 ---
-- include_vars: "{{ ansible_distribution|lower }}.yml"
+- name: Include OS specific variables
+  include_vars:
+    file: "{{ lookup('first_found', possible_files) }}"
+  vars:
+    possible_files:
+      - "vars/{{ ansible_distribution | lower }}-{{ ansible_distribution_version }}.yml"
+      - "vars/{{ ansible_distribution | lower }}.yml"
 
-- include_tasks: "install/{{ ansible_distribution|lower }}.yml"
+- include_tasks: "install/{{ ansible_distribution | lower }}.yml"
 
 - name: Create required dirs
   file:

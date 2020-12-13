@@ -43,7 +43,7 @@
     dest: "{{ wireguard_systemd_path }}/{{ wireguard_interface }}.netdev"
     mode: 0644
   vars:
-    systemd_config: "{{ wireguard_systemd_netdev + peers }}"
+    systemd_config: "{{ wireguard_systemd_netdev + (peers | list) }}"
   notify:
     - reload systemd
     - restart systemd-networkd

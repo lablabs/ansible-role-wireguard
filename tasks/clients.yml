@@ -14,4 +14,4 @@
   vars:
     server_public_key: "{{ _pubkey_value['content'] | b64decode }}"
     preshared_key: "{{ _pskkey_value['content'] | b64decode }}"
-  loop: "{{ peers }}"
+  loop: "{{ peers | list }}"
