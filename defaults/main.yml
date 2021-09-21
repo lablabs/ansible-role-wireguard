@@ -3,6 +3,9 @@
 wireguard_dir: /etc/wireguard
 wireguard_clients_dir: "{{ wireguard_dir }}/clients"
 
+wireguard_clients_download_dir: clients/
+wireguard_download_clients: false
+
 # Predefined wireguard keys, this usually should be defined in ansible-vault
 wireguard_privatekey_path: "{{ wireguard_dir }}/privatekey"
 wireguard_publickey_path: "{{ wireguard_dir }}/publickey"

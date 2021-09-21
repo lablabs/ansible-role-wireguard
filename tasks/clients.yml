@@ -15,3 +15,15 @@
     server_public_key: "{{ _pubkey_value['content'] | b64decode }}"
     preshared_key: "{{ _pskkey_value['content'] | b64decode }}"
   loop: "{{ peers | list }}"
+
+- name: Copy client configs
+  shell: cp -u $(grep -iRl '{{ item.publickey }}' {{ wireguard_clients_dir }}/) /tmp/{{ item.name }}.conf
+  loop: "{{ wireguard_peers | list }}"
+  when: wireguard_download_clients | bool
+
+- name: Download client configs
+  fetch:
+    src: /tmp/{{ item.name }}.conf
+    dest: "{{ wireguard_clients_download_dir }}"
+  loop: "{{ wireguard_peers | list }}"
+  when: wireguard_download_clients | bool
