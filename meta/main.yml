@@ -1,0 +1,27 @@
+galaxy_info:
+  author: Adam Hamsik
+  role_name: wireguard
+  namespace: lablabs
+  description: Installs Wireguard with systemd integration.
+  license: MIT
+  min_ansible_version: 2.5
+  platforms:
+    - name: ArchLinux
+    - name: Ubuntu
+      versions:
+        - bionic
+    - name: Debian
+      versions:
+        - stretch
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - 31
+  galaxy_tags:
+    - networking
+    - security
+    - linux
+    - vpn
+    - wireguard
