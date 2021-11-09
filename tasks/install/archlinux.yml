@@ -1,6 +1,6 @@
 ---
 - name: Install required packages
-  become: yes
+  become: true
   pacman:
     name: "{{ wireguard_distro_packages }}"
     state: present
