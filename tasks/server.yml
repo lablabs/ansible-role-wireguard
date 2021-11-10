@@ -9,6 +9,8 @@
   shell: |
     set -o pipefail
     umask 077 && wg genkey | tee {{ wireguard_privatekey_path }} | wg pubkey > {{ wireguard_publickey_path }}
+  args:
+    executable: /bin/bash
   when: not _priv_key.stat.exists
 
 - name: Read publickey
@@ -30,6 +32,8 @@
   shell: |
     set -o pipefail
     umask 077 && wg genpsk | tee {{ wireguard_presharedkey_path }}
+  args:
+    executable: /bin/bash
   when: not _psk_key.stat.exists
 
 - name: Read presharedkey
