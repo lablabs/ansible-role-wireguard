@@ -12,11 +12,7 @@ This Ansible role will deploy [Wireguard](https://www.wireguard.com/) VPN tunnel
 
 ## Requirements
 
-
-
-## Tested on
-
-
+...
 ## Role Variables
 
 This is a copy of `defaults/main.yml`
@@ -27,7 +23,7 @@ This is a copy of `defaults/main.yml`
 
 ## Playbook example
 
-This playbook will 
+This playbook will ...
 
 ```yaml
 
