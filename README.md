@@ -14,7 +14,8 @@ This Ansible role will deploy [Wireguard](https://www.wireguard.com/) VPN tunnel
 
 This role requires root access rights with global `become: true`.
 
-> Please note that this role will not setup the MASQUERADE and IPv4 Forwarding. This has to be a separate task (see the example playbook).
+> Please note that this role will not setup the MASQUERADE and IPv4 Forwarding. This has to be a separate task (see the [example playbook](#playbook-example)).
+
 ## Role Variables
 
 This is a copy of `defaults/main.yml`.
@@ -94,7 +95,7 @@ wireguard_peers: []
 ## Playbook example
 
 This playbook will run Wireguard Ansible Role to deploy Wireguard server and configure 3 users/peers.
-Remaining 4 tasks will set iptables for Masquarade and IPv4 Forwarding.
+it will also download the client configs into specified directory. Remaining 4 tasks will set Masquarade and IPv4 Forwarding.
 
 ```yaml
 ---
@@ -104,6 +105,8 @@ Remaining 4 tasks will set iptables for Masquarade and IPv4 Forwarding.
   become: true
   gather_facts: true
   vars:
+    wireguard_clients_download_dir: /my_clients/
+    wireguard_download_clients: true
     wireguard_peers:
       - name: user1
         publickey: "asdasdasdadsasdasd"
