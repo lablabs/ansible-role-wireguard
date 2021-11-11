@@ -1,8 +1,8 @@
 # Wireguard Ansible role
 
-[![Galaxy Quality](https://img.shields.io/ansible/quality/55255?style=flat&logo=ansible)](https://galaxy.ansible.com/lablabs/wireguard)
+[![Galaxy Quality](https://img.shields.io/ansible/quality/56888?style=flat&logo=ansible)](https://galaxy.ansible.com/lablabs/wireguard)
 [![Role version](https://img.shields.io/github/v/release/lablabs/ansible-role-wireguard)](https://galaxy.ansible.com/lablabs/wireguard)
-[![Role downloads](https://img.shields.io/ansible/role/d/55255)](https://galaxy.ansible.com/lablabs/wireguard)
+[![Role downloads](https://img.shields.io/ansible/role/d/56888)](https://galaxy.ansible.com/lablabs/wireguard)
 [![GitHub Actions](https://github.com/lablabs/ansible-role-wireguard/actions/workflows/lint.yaml/badge.svg)](https://github.com/lablabs/ansible-role-wireguard/actions)
 [![License](https://img.shields.io/github/license/lablabs/ansible-role-wireguard)](https://github.com/lablabs/ansible-role-wireguard/blob/main/LICENSE)
 
