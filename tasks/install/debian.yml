@@ -8,7 +8,7 @@
   apt_repository:
     repo: "deb http://deb.debian.org/debian buster-backports main"
     state: present
-    update_cache: yes
+    update_cache: true
   when: ansible_distribution_version | int <= 10
   tags:
     - wg-install

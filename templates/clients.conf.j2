@@ -2,7 +2,7 @@
 # User public key: "{{ item.WireGuardPeer | json_query('[?"PublicKey"].PublicKey') | first }}"
 
 [Interface]
-PrivateKey = [User Private Key File]
+PrivateKey = [User Private Key]
 Address = {{ item.WireGuardPeer | json_query('[?"AllowedIPs"].AllowedIPs') | first }}
 
 [Peer]
