@@ -16,5 +16,4 @@ jobs:
     - name: Lint Ansible Playbook
       uses: ansible/ansible-lint-action@v4.1.0
       with:
-        targets: ""
-        args: ""
+        targets: "tasks/"
