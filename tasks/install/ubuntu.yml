@@ -3,14 +3,14 @@
   apt_repository:
     repo: "{{ wireguard_repo_url }}"
     state: present
-    update_cache: true
   when: wireguard_repo_url
   tags:
     - wg-install
 
 - name: Install required packages
-  package:
+  apt:
     name: "{{ wireguard_distro_packages }}"
+    update_cache: true
     state: present
   tags:
     - wg-install
