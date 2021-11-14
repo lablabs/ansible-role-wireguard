@@ -6,6 +6,23 @@
 # - debug: msg="{{ item.WireGuardPeer | json_query('[?"PublicKey"].PublicKey') }}"
 #   loop: "{{ peers }}"
 
+- name: List of defined clients
+  set_fact:
+    _list_of_defined_clients: "{{ _list_of_defined_clients + [item.publickey] }}"
+  with_items: "{{ wireguard_peers }}"
+
+- name: Delete unused client configs
+  shell: |
+    cd "{{ wireguard_clients_dir }}"
+    if [ ! -z "$(grep -L '''"{{ _list_of_defined_clients | join("\|") }}"''' *.conf)" ]; then
+      rm -f $(grep -L '''"{{ _list_of_defined_clients | join("\|") }}"''' *.conf) \
+      && echo "deleted"
+    fi
+  register: _delete_out
+  args:
+    executable: /bin/bash
+  changed_when: "'deleted' in _delete_out.stdout"
+
 - name: Create clients configs
   template:
     src: "clients.conf.j2"
