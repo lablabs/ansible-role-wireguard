@@ -26,7 +26,7 @@
 - name: Create clients configs
   template:
     src: "clients.conf.j2"
-    dest: "{{ wireguard_clients_dir }}/{{ item | to_uuid }}.conf"
+    dest: "{{ wireguard_clients_dir }}/{{ item.WireGuardPeer.0 | json_query('FriendlyName') }}.conf"
     mode: 0644
   vars:
     server_public_key: "{{ _pubkey_value['content'] | b64decode }}"
@@ -34,11 +34,6 @@
   loop: "{{ peers | list }}"
   notify:
     - restart systemd-networkd
-
-- name: Copy client configs
-  shell: cp -u $(grep -iRl '{{ item.publickey }}' {{ wireguard_clients_dir }}/) /tmp/{{ item.name }}.conf
-  loop: "{{ wireguard_peers | list }}"
-  when: wireguard_download_clients | bool
 
 - name: Download client configs
   fetch:
