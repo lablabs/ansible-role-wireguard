@@ -8,7 +8,7 @@
 
 - name: List of defined clients
   set_fact:
-    _list_of_defined_clients: "{{ _list_of_defined_clients + [item.publickey] }}"
+    _list_of_defined_clients: "{{ _list_of_defined_clients | default([]) + [item.publickey] }}"
   with_items: "{{ wireguard_peers }}"
 
 - name: Delete unused client configs
