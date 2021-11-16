@@ -112,14 +112,14 @@ It will also download the client configs into the specified directory. Remaining
     wireguard_download_clients: true
     wireguard_peers:
       - name: user1
-        allowed_ip: "10.213.213.2/32"
+        allowed_ip: "10.213.213.2"
         publickey: "asdasdasdadsasdasd"
       - name: user2
-        allowed_ip: "10.213.213.3/32"
+        allowed_ip: "10.213.213.3"
         publickey: "000000000000000000"
         keepalive: 30
       - name: user3
-        allowed_ip: "10.213.213.4/32"
+        allowed_ip: "10.213.213.4"
         publickey: "111111111111111111"
 
   roles:
