@@ -3,8 +3,9 @@
 # This is simple jinja2 file used to generate peer variable based on dynamic input.
 #
 {% for peer in wireguard_peers %}
+# Name: {{ peer.name | default("") }}
 - WireGuardPeer:
-  - AllowedIPs: {{ wireguard_server_ip | ipmath(loop.index) }}/32
+  - AllowedIPs: {{ peer.ip | default(wireguard_server_ip | ipmath(loop.index)) }}/32
   - PublicKey: "{{ peer.publickey }}"
   - PresharedKey: "{{ _pskkey_value['content'] | b64decode }}"
   - PersistentKeepalive: {{ peer.keepalive | default(wireguard_keepalive) }}
