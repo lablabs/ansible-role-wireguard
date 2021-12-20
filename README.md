@@ -83,11 +83,14 @@ wireguard_keepalive: 25
 wireguard_peers_allowed_ips: ""
 wireguard_peers: []
   # - name: user1
+  #   ip: ""
   #   publickey: "asdasdasdadsasdasd"
   # - name: user2
+  #   ip: ""
   #   publickey: "000000000000000000"
   #   keepalive: 30
   # - name: user3
+  #   ip: 
   #   publickey: "111111111111111111"
 
 ```
